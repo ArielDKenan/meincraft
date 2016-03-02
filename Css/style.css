@@ -191,6 +191,7 @@ input, select {
     height: 30px;
     margin: 0px;
     padding: 0px;
+    background-color: lightblue;
 }
 .tile:hover{
     border: 1px solid white;
@@ -199,9 +200,9 @@ input, select {
 
 
 .tile.interact:hover {
-    /*background-image: linear-gradient(rgba(255, 255, 255, 0.2), url('C:\dev\Web\jQuery\Minecraft-Game\images\Tiles'));*/
+    background-image: linear-gradient(rgba(255, 255, 255, 0.2), url('../images/Tiles/bedrock.png'));
     border: 4px solid #11841C;
-
+    opacity: .5;
 }
 
 .row{
@@ -296,6 +297,8 @@ input, select {
     height: 30px;
     width: 30px;
     border-radius: 5px;
+    font-weight: 700;
+    font-size: 22px;
 }
 
 .bottomButton {

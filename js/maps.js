@@ -6,6 +6,7 @@ var trees;
 var rocks;
 var loadOnStart = false;
 var GROUND_HEIGHT;
+var flipDir = 1;
 
 // save contents of tiles into memory
 function saveMap() {
@@ -34,7 +35,7 @@ function loadMap(invert) {
 }
 
 // save board into localstorage
-function storeBoard() {
+function storeGame() {
     localStorage.clear();
     for (var ctr=0; ctr<$board.length; ctr++) {
         for (var ctr2=0; ctr2<$board[ctr].length; ctr2++) {
@@ -45,7 +46,7 @@ function storeBoard() {
 }
 
 // load board from localstorage
-function loadStoredBoard() {
+function loadStoredGame() {
     $board.forEach(function (data, index) {
         data.forEach(function (data2, index2) {
             $board[index][index2].attr('class', localStorage.getItem(($board[0].length * index + index2).toString()));
@@ -57,7 +58,7 @@ function loadStoredBoard() {
 function newGame(){
     flipDir = 1;
     if (loadOnStart) {
-        loadStoredBoard();
+        loadStoredGame();
         loadOnStart = false;
     } else {
         createMap();
@@ -78,17 +79,12 @@ function changeTile(x, y, type) {
     $board[y][x].addClass(tileClasses[type]);
 }
 
-// returns random integer between a and b (inclusive)
-function numBetween(a, b) {
-    return Math.floor(Math.random() * (b-a+1)) + a;
-}
-
 // randomly generates elements and calls changeTile() for each tile of every element to draw the board
 function createMap() {
     var NUM_CLOUDS = 2;
-    var NUM_ROCKS = numBetween(2,4);
-    var NUM_TREES = numBetween(2,3);
-    GROUND_HEIGHT = numBetween(3, 7);
+    var NUM_ROCKS = randNumber(2,4);
+    var NUM_TREES = randNumber(2,3);
+    GROUND_HEIGHT = randNumber(3, 7);
     // fill map with sky
     for (var ctr=0; ctr<$board.length; ctr++) {
         for (var ctr2=0; ctr2<$board[ctr].length; ctr2++) {
@@ -99,17 +95,17 @@ function createMap() {
     // create clouds
     clouds = [];
     var fcx, fcy, fch, fcw;
-    fcx = numBetween(-3, 9);
-    fcy = numBetween(1, 5);
-    fch = numBetween(3, 6);
-    fcw = numBetween(fcx<0 ? -fcx*2 : 2, 7);
+    fcx = randNumber(-3, 9);
+    fcy = randNumber(1, 5);
+    fch = randNumber(3, 6);
+    fcw = randNumber(fcx<0 ? -fcx*2 : 2, 7);
     clouds.push({ x: fcx, y: fcy, h: fch, w: fcw });
     drawCloud(fcx, fcy, fch, fcw);
     
-    fcx = numBetween(10, 20);
-    fcy = numBetween(1, 5);
-    fch = numBetween(3, 6);
-    fcw = numBetween(2, 7);
+    fcx = randNumber(10, 20);
+    fcy = randNumber(1, 5);
+    fch = randNumber(3, 6);
+    fcw = randNumber(2, 7);
     clouds.push({ x: fcx, y: fcy, h: fch, w: fcw });
     drawCloud(fcx, fcy, fch, fcw);
 
@@ -126,10 +122,10 @@ function createMap() {
     for (var ctr=0; ctr<NUM_TREES; ctr++) {
         do {
             good = true;
-            tx = numBetween(1, $board[0].length - 2);
+            tx = randNumber(1, $board[0].length - 2);
             ty = GROUND_HEIGHT;
-            tlh = numBetween(2, 4);
-            tth = numBetween(2, 7);
+            tlh = randNumber(2, 4);
+            tth = randNumber(2, 7);
             trees.forEach(function (data) {
                 if (tx >= data.x - 1 && tx <= data.x + 1) {
                     good = false;
@@ -146,8 +142,8 @@ function createMap() {
         var rx, rh;
         do {
             good = true;
-            rx = numBetween(0, $board[0].length-1);
-            rh = numBetween(1, 2);
+            rx = randNumber(0, $board[0].length-1);
+            rh = randNumber(1, 2);
             trees.forEach(function (data) {
                 if (data.x === rx) good = false;
             });

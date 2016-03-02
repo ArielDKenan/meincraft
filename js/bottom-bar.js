@@ -1,31 +1,43 @@
 /**
  * Created by User on 12/30/2015.
  */
-function createSaveButton(){
+function createSaveButton() {
     var $save = $('<div></div>');
     $save.addClass('bottomButton');
     $save.text('SAVE');
-    $save.on('click', function() {storeBoard()});
+    $save.on('click', storeGame);
     $('#bottom').append($save);
 }
-function createLoadButton(){
+
+function createLoadButton() {
     var $load = $('<div></div>');
     $load.text('LOAD');
     $load.addClass('bottomButton');
-    $load.on('click', function() {loadStoredBoard()});
+    $load.on('click', loadStoredGame);
     $('#bottom').append($load);
 }
-function createNewGameButton(){
+
+function createNewGameButton() {
     var $newGame = $('<div></div>');
     $newGame.text('NEW GAME');
     $newGame.addClass('bottomButton');
-    $newGame.on('click', function(){newGame()});
+    $newGame.on('click', newGame);
     $('#bottom').append($newGame);
 }
-function exitGame(){
+
+function createExitGameButton() {
     var $exitGame = $('<div></div>');
     $exitGame.text('EXIT');
     $exitGame.addClass('bottomButton');
     $exitGame.on('click', welcome);
     $('#bottom').append($exitGame);
+}
+
+function createBottomButtons() {
+    if (!$('.bottomButton')[0]) {
+        createSaveButton();
+        createLoadButton();
+        createNewGameButton();
+        createExitGameButton();
+    }
 }
